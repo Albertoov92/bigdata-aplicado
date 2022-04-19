@@ -1,0 +1,202 @@
+[
+    {
+        "id": "72b42483565e7c88",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "462a894b5bb4fa72",
+        "type": "inject",
+        "z": "72b42483565e7c88",
+        "name": "Tenda 1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "9c724c051ff89ff9"
+            ]
+        ]
+    },
+    {
+        "id": "9c724c051ff89ff9",
+        "type": "function",
+        "z": "72b42483565e7c88",
+        "name": "",
+        "func": "var msgList = [];\n\nmarca = [\"BMW\",\"Lexus\",\"Audi\",\"Honda\",\"Mercedes\",\"Nissan\"]\ncolor = [\"Blanco\",\"Negro\",\"Rojo\",\"Amarillo\",\"Azul\"]\nprecio = [\"30000\",\"35000\",\"47000\",\"50000\"]\n\ni = Math.floor(Math.random() * 6);\nj = Math.floor(Math.random() * 5);\ng = Math.floor(Math.random() * 4);\n\ndato_json = {tenda: \"Tenda1\", marca : marca[i], color: color[j], precio: precio[g] }\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 280,
+        "wires": [
+            [
+                "64c54d0b92ef974f",
+                "c950c2e85d096e44"
+            ]
+        ]
+    },
+    {
+        "id": "663d3aa7e18cab2c",
+        "type": "kafkajs-producer",
+        "z": "72b42483565e7c88",
+        "name": "",
+        "client": "38dbba2809bee9f2",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 660,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "64c54d0b92ef974f",
+        "type": "debug",
+        "z": "72b42483565e7c88",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c950c2e85d096e44",
+        "type": "json",
+        "z": "72b42483565e7c88",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 420,
+        "wires": [
+            [
+                "663d3aa7e18cab2c"
+            ]
+        ]
+    },
+    {
+        "id": "2038633ed0449238",
+        "type": "inject",
+        "z": "72b42483565e7c88",
+        "name": "Tenda 2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 640,
+        "wires": [
+            [
+                "831fdaa8e6ddf0ca"
+            ]
+        ]
+    },
+    {
+        "id": "831fdaa8e6ddf0ca",
+        "type": "function",
+        "z": "72b42483565e7c88",
+        "name": "",
+        "func": "var msgList = [];\n\nmarca = [\"BMW\",\"Lexus\",\"Audi\",\"Honda\",\"Mercedes\",\"Nissan\"]\ncolor = [\"Blanco\",\"Negro\",\"Rojo\",\"Amarillo\",\"Azul\"]\nprecio = [\"30000\",\"35000\",\"47000\",\"50000\"]\n\ni = Math.floor(Math.random() * 6);\nj = Math.floor(Math.random() * 5);\ng = Math.floor(Math.random() * 4);\n\ndato_json = {tenda: \"Tenda2\", marca : marca[i], color: color[j], precio: precio[g] }\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 580,
+        "wires": [
+            [
+                "0c9b515e88ffd5a9",
+                "c950c2e85d096e44"
+            ]
+        ]
+    },
+    {
+        "id": "0c9b515e88ffd5a9",
+        "type": "debug",
+        "z": "72b42483565e7c88",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "38dbba2809bee9f2",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
